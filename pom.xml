@@ -5,13 +5,17 @@
     <artifactId>oauth</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
     <modules>
         <module>rest</module>
+        <module>integration</module>
     </modules>
+
     <properties>
         <javac.version>1.8</javac.version>
         <maven.pom.sort.version>2.3.0</maven.pom.sort.version>
     </properties>
+
     <build>
         <defaultGoal>clean install</defaultGoal>
         <plugins>
