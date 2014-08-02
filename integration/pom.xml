@@ -8,6 +8,7 @@
     </parent>
 
     <artifactId>integration</artifactId>
+    <name>Integration Tests for OAuth</name>
     <properties>
         <resteasy-jaxrs.version>3.0.8.Final</resteasy-jaxrs.version>
         <junit.version>4.11</junit.version>

@@ -5,10 +5,12 @@
     <artifactId>oauth</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Oauth</name>
 
     <modules>
-        <module>rest-1.0</module>
         <module>integration</module>
+        <module>rest-1.0</module>
+        <module>rest</module>
     </modules>
 
     <properties>

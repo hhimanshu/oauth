@@ -9,6 +9,7 @@
 
     <artifactId>rest-1.0</artifactId>
     <packaging>war</packaging>
+    <name>Apache Oltu OAuth</name>
 
     <properties>
         <authz.server.version>1.0.0</authz.server.version>
