@@ -21,19 +21,17 @@ public class RegisterResource {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response register(@Context HttpServletRequest request) throws OAuthSystemException {
+    public Response register(@Context final HttpServletRequest request) throws OAuthSystemException {
 
-
-        OAuthServerRegistrationRequest oauthRequest = null;
         try {
-            oauthRequest = new OAuthServerRegistrationRequest(new JSONHttpServletRequestWrapper(request));
+            final OAuthServerRegistrationRequest oauthRequest = new OAuthServerRegistrationRequest(new JSONHttpServletRequestWrapper(request));
             oauthRequest.discover();
             oauthRequest.getClientName();
             oauthRequest.getClientUrl();
             oauthRequest.getClientDescription();
             oauthRequest.getRedirectURI();
 
-            OAuthResponse response = OAuthServerRegistrationResponse
+            final OAuthResponse response = OAuthServerRegistrationResponse
                     .status(HttpServletResponse.SC_OK)
                     .setClientId(CommonExt.CLIENT_ID)
                     .setClientSecret(CommonExt.CLIENT_SECRET)
@@ -42,13 +40,12 @@ public class RegisterResource {
                     .buildJSONMessage();
             return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
 
-        } catch (OAuthProblemException e) {
-            OAuthResponse response = OAuthServerRegistrationResponse
+        } catch (final OAuthProblemException e) {
+            final OAuthResponse response = OAuthServerRegistrationResponse
                     .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
                     .error(e)
                     .buildJSONMessage();
             return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
         }
-
     }
 }
