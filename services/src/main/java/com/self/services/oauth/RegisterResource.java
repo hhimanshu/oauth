@@ -1,13 +1,31 @@
 package com.self.services.oauth;
 
 import javax.annotation.Nonnull;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
+import com.self.business.oauth.ClientRegistrationManager;
+import com.self.business.outbound.ClientDetail;
+
+@RequestScoped
 @Path("register")
 public class RegisterResource {
+    private ClientRegistrationManager clientRegistrationManager;
+
+    @SuppressWarnings("UnusedDeclaration")
+    public RegisterResource() {
+        // used by jax-rs
+    }
+
+    @Inject
+    public RegisterResource(@Nonnull final ClientRegistrationManager clientRegistrationManager) {
+        this.clientRegistrationManager = clientRegistrationManager;
+    }
+
     @GET
     public Response helloOauth() {
         return Response.ok("Hello Oauth").build();
@@ -15,6 +33,7 @@ public class RegisterResource {
 
     @POST
     public Response registerClient(@Nonnull final ClientRequest clientRequest) {
-        return Response.ok().build();
+        final ClientDetail clientDetail = clientRegistrationManager.register(clientRequest.getEmail(), clientRequest.getId(), clientRequest.getPassword());
+        return Response.ok(clientDetail).build();
     }
 }

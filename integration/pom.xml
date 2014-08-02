@@ -89,6 +89,8 @@
                             <properties>
                                 <context>application</context>
                             </properties>
+                            <pingURL>http://localhost:9090/application/oauth/register</pingURL>
+                            <pingTimeout>30000</pingTimeout>
                         </deployable>
                     </deployables>
                     <configuration>

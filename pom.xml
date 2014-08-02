@@ -8,6 +8,7 @@
     <name>Oauth</name>
 
     <modules>
+        <module>business</module>
         <module>services</module>
         <module>integration</module>
     </modules>
@@ -17,6 +18,8 @@
         <maven.pom.sort.version>2.3.0</maven.pom.sort.version>
         <jsr305.version>3.0.0</jsr305.version>
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+        <cdi-api.version>1.2</cdi-api.version>
+        <javaee-api.version>7.0</javaee-api.version>
     </properties>
 
     <dependencies>
@@ -25,6 +28,11 @@
             <artifactId>jsr305</artifactId>
             <version>${jsr305.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javaee-api.version}</version>
         </dependency>
 
     </dependencies>
