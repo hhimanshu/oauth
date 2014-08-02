@@ -8,15 +8,26 @@
     <name>Oauth</name>
 
     <modules>
-        <module>integration</module>
         <module>rest-1.0</module>
-        <module>rest</module>
+        <module>services</module>
+        <module>integration</module>
     </modules>
 
     <properties>
         <javac.version>1.8</javac.version>
         <maven.pom.sort.version>2.3.0</maven.pom.sort.version>
+        <jsr305.version>3.0.0</jsr305.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>${jsr305.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
 
     <build>
         <defaultGoal>clean install</defaultGoal>

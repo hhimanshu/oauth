@@ -11,10 +11,18 @@ import org.junit.Test;
 
 public class HelloIT {
     @Test
-    public void testHello() {
+    public void testHelloOAuth() {
         final Client client = ClientBuilder.newClient();
-        final Response response = client.target("http://localhost:9090/oauth/rest/hello").request().get();
+        final Response response = client.target("http://localhost:9090/application/oauth/register").request().get();
         assertEquals(HttpStatus.SC_OK, response.getStatus());
-        assertEquals("Hello World!", response.readEntity(String.class));
+        assertEquals("Hello Oauth", response.readEntity(String.class));
+    }
+
+    @Test
+    public void testHelloRest() {
+        final Client client = ClientBuilder.newClient();
+        final Response response = client.target("http://localhost:9090/application/rest/protected").request().get();
+        assertEquals(HttpStatus.SC_OK, response.getStatus());
+        assertEquals("Hello REST", response.readEntity(String.class));
     }
 }
