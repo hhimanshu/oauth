@@ -8,7 +8,6 @@
     <name>Oauth</name>
 
     <modules>
-        <module>rest-1.0</module>
         <module>services</module>
         <module>integration</module>
     </modules>
@@ -17,6 +16,7 @@
         <javac.version>1.8</javac.version>
         <maven.pom.sort.version>2.3.0</maven.pom.sort.version>
         <jsr305.version>3.0.0</jsr305.version>
+        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
     </properties>
 
     <dependencies>
@@ -34,7 +34,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${javac.version}</source>
                     <target>${javac.version}</target>

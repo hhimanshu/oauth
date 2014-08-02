@@ -1,10 +1,14 @@
 package com.self.services.oauth;
 
 import javax.annotation.Nonnull;
+import javax.validation.constraints.NotNull;
 
 public class ClientRequest {
+    @NotNull(message = "email can not be empty")
     private final String email;
+    @NotNull(message = "id can not be empty")
     private final long id;
+    @NotNull(message = "password can not be empty")
     private final String password;
 
     public ClientRequest(@Nonnull final String email, final long id, @Nonnull final String password) {
