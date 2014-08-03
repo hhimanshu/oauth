@@ -9,7 +9,7 @@
     
     <artifactId>services</artifactId>
     <packaging>war</packaging>
-    <name>Homegrown Oauth-like</name>
+    <name>OAuth: REST</name>
     
     <properties>
         <jaxrs.version>1.1.1</jaxrs.version>

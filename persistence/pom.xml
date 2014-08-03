@@ -7,7 +7,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     
-    <artifactId>business</artifactId>
-    <name>OAuth: Business</name>
-    
+    <artifactId>persistence</artifactId>
+    <name>OAuth: Persistence</name>
 </project>
