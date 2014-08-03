@@ -15,6 +15,8 @@
         <jaxrs.version>1.1.1</jaxrs.version>
         <maven-war-plugin.version>2.4</maven-war-plugin.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
+        <coveralls-maven-plugin.version>2.2.0</coveralls-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.6.4.201312101107</jacoco-maven-plugin.version>
     </properties>
     
     <dependencies>
@@ -45,7 +47,27 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${coveralls-maven-plugin.version}</version>
+                <configuration>
+                    <repoToken>m7H1bkF57hERxVA84Xm0zqEFBryA7O7vs</repoToken>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-    
 </project>
