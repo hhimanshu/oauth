@@ -9,4 +9,28 @@
     
     <artifactId>persistence</artifactId>
     <name>OAuth: Persistence</name>
+    
+    <properties>
+        <hibernate-jpa-2.0-api.version>1.0.1.Final</hibernate-jpa-2.0-api.version>
+        <junit.version>4.11</junit.version>
+        <hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>${hibernate-jpa-2.0-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate-entitymanager.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

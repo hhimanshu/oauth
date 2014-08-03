@@ -1,4 +1,4 @@
-package com.self.business.oauth;
+package com.self.oauth.business.oauth;
 
 import java.util.UUID;
 

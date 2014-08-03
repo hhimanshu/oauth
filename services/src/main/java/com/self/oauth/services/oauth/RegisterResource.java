@@ -1,4 +1,4 @@
-package com.self.services.oauth;
+package com.self.oauth.services.oauth;
 
 import javax.annotation.Nonnull;
 import javax.enterprise.context.RequestScoped;
@@ -8,8 +8,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import com.self.business.oauth.ClientRegistrationManager;
-import com.self.business.outbound.ClientDetail;
+import com.self.oauth.business.oauth.ClientRegistrationManager;
+import com.self.oauth.business.outbound.ClientDetail;
 
 @RequestScoped
 @Path("register")

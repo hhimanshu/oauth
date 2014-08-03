@@ -1,4 +1,4 @@
-package com.self.services.oauth;
+package com.self.oauth.services.oauth;
 
 import javax.ws.rs.Path;
 

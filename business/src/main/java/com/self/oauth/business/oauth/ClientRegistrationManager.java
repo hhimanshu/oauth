@@ -1,9 +1,9 @@
-package com.self.business.oauth;
+package com.self.oauth.business.oauth;
 
 import javax.annotation.Nonnull;
 import javax.ejb.Stateless;
 
-import com.self.business.outbound.ClientDetail;
+import com.self.oauth.business.outbound.ClientDetail;
 
 @Stateless
 public class ClientRegistrationManager {

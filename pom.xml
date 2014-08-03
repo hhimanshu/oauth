@@ -21,7 +21,18 @@
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <cdi-api.version>1.2</cdi-api.version>
         <javaee-api.version>7.0</javaee-api.version>
+        <junit.version>4.11</junit.version>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     
     <dependencies>
         <dependency>

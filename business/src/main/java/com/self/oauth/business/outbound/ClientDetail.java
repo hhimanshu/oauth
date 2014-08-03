@@ -1,4 +1,4 @@
-package com.self.business.outbound;
+package com.self.oauth.business.outbound;
 
 import javax.annotation.Nonnull;
 
