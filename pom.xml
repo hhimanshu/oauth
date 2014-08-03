@@ -6,13 +6,13 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Oauth</name>
-
+    
     <modules>
         <module>business</module>
         <module>services</module>
         <module>integration</module>
     </modules>
-
+    
     <properties>
         <javac.version>1.8</javac.version>
         <maven.pom.sort.version>2.3.0</maven.pom.sort.version>
@@ -21,7 +21,7 @@
         <cdi-api.version>1.2</cdi-api.version>
         <javaee-api.version>7.0</javaee-api.version>
     </properties>
-
+    
     <dependencies>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
@@ -34,9 +34,9 @@
             <artifactId>javaee-api</artifactId>
             <version>${javaee-api.version}</version>
         </dependency>
-
+        
     </dependencies>
-
+    
     <build>
         <defaultGoal>clean install</defaultGoal>
         <plugins>

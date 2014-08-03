@@ -6,7 +6,7 @@
         <groupId>com.self</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
+    
     <artifactId>integration</artifactId>
     <name>Integration Tests for OAuth</name>
     <properties>
@@ -15,7 +15,7 @@
         <maven-failsafe-plugin.version>2.12</maven-failsafe-plugin.version>
         <cargo-maven2-plugin.version>1.4.8</cargo-maven2-plugin.version>
     </properties>
-
+    
     <dependencies>
         <dependency>
             <groupId>com.self</groupId>
@@ -40,7 +40,7 @@
             <version>${junit.version}</version>
         </dependency>
     </dependencies>
-
+    
     <build>
         <plugins>
             <plugin>

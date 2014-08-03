@@ -6,17 +6,17 @@
         <groupId>com.self</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
+    
     <artifactId>services</artifactId>
     <packaging>war</packaging>
     <name>Homegrown Oauth-like</name>
-
+    
     <properties>
         <jaxrs.version>1.1.1</jaxrs.version>
         <maven-war-plugin.version>2.4</maven-war-plugin.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
     </properties>
-
+    
     <dependencies>
         <dependency>
             <groupId>com.self</groupId>
@@ -34,7 +34,7 @@
             <version>${validation-api.version}</version>
         </dependency>
     </dependencies>
-
+    
     <build>
         <plugins>
             <plugin>
@@ -47,5 +47,5 @@
             </plugin>
         </plugins>
     </build>
-
+    
 </project>
