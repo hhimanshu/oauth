@@ -24,8 +24,6 @@
         <cdi-api.version>1.2</cdi-api.version>
         <javaee-api.version>7.0</javaee-api.version>
         <junit.version>4.11</junit.version>
-        <coveralls-maven-plugin.version>2.2.0</coveralls-maven-plugin.version>
-        <cobertura-maven-plugin.version>2.6</cobertura-maven-plugin.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -80,26 +78,6 @@
                     <keepBlankLines>true</keepBlankLines>
                     <indentBlankLines>true</indentBlankLines>
                     <lineSeparator>\n</lineSeparator>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>${coveralls-maven-plugin.version}</version>
-                <configuration>
-                    <repoToken>m7H1bkF57hERxVA84Xm0zqEFBryA7O7vs</repoToken>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>${cobertura-maven-plugin.version}</version>
-                <configuration>
-                    <format>xml</format>
-                    <maxmem>256m</maxmem>
-                    <!-- aggregated reports for multi-module projects -->
-                    <aggregate>true</aggregate>
-                    <check></check>
                 </configuration>
             </plugin>
         </plugins>
