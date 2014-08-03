@@ -22,6 +22,8 @@
         <cdi-api.version>1.2</cdi-api.version>
         <javaee-api.version>7.0</javaee-api.version>
         <junit.version>4.11</junit.version>
+        <coveralls-maven-plugin.version>2.2.0</coveralls-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.6.4.201312101107</jacoco-maven-plugin.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -78,6 +80,27 @@
                     <indentBlankLines>true</indentBlankLines>
                     <lineSeparator>\n</lineSeparator>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${coveralls-maven-plugin.version}</version>
+                <configuration>
+                    <repoToken>m7H1bkF57hERxVA84Xm0zqEFBryA7O7vs</repoToken>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
