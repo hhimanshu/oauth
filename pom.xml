@@ -23,7 +23,7 @@
         <javaee-api.version>7.0</javaee-api.version>
         <junit.version>4.11</junit.version>
         <coveralls-maven-plugin.version>2.2.0</coveralls-maven-plugin.version>
-        <jacoco-maven-plugin.version>0.6.4.201312101107</jacoco-maven-plugin.version>
+        <cobertura-maven-plugin.version>2.6</cobertura-maven-plugin.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -91,7 +91,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.6</version>
+                <version>${cobertura-maven-plugin.version}</version>
                 <configuration>
                     <format>xml</format>
                     <maxmem>256m</maxmem>
