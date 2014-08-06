@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class UserTest {
+public class UserServiceTest {
 
     @Test
     public void testUser() {

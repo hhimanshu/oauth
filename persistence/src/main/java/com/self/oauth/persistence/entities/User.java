@@ -9,12 +9,12 @@ import javax.persistence.Id;
 @Entity
 public class User {
     @Id
-    private final String id;
-    private final String externalUserId;
-    private final String email;
-    private final String clientId;
-    private final String clientSecret;
-    private final boolean active;
+    private String id;
+    private String externalUserId;
+    private String email;
+    private String clientId;
+    private String clientSecret;
+    private boolean active;
 
     public User(@Nonnull final String externalUserId, @Nonnull final String email,
                 @Nonnull final String clientId, @Nonnull final String clientSecret, final boolean active) {
@@ -24,6 +24,9 @@ public class User {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.active = active;
+    }
+
+    public User() {
     }
 
     @Nonnull

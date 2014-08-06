@@ -6,16 +6,17 @@
         <groupId>com.self</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    
+
     <artifactId>persistence</artifactId>
     <name>OAuth: Persistence</name>
-    
+
     <properties>
         <hibernate-jpa-2.0-api.version>1.0.1.Final</hibernate-jpa-2.0-api.version>
         <junit.version>4.11</junit.version>
         <hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version>
+        <h2.version>1.4.180</h2.version>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -31,6 +32,11 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate-entitymanager.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
         </dependency>
     </dependencies>
 </project>
