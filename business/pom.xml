@@ -9,5 +9,11 @@
     
     <artifactId>business</artifactId>
     <name>OAuth: Business</name>
-    
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
 </project>
