@@ -3,6 +3,7 @@ package com.self.oauth.persistence.entities;
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -11,6 +12,7 @@ public class User {
     @Id
     private String id;
     private String externalUserId;
+    @Column(unique = true)
     private String email;
     private String clientId;
     private String clientSecret;
