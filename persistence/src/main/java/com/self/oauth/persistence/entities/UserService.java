@@ -2,7 +2,6 @@ package com.self.oauth.persistence.entities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import com.mysema.query.jpa.JPQLQuery;
@@ -11,7 +10,6 @@ import com.mysema.query.jpa.impl.JPAQuery;
 public class UserService {
     private final EntityManager entityManager;
 
-    @Inject
     public UserService(@Nonnull final EntityManager entityManager) {
         this.entityManager = entityManager;
     }
