@@ -17,13 +17,13 @@ public class User {
     private boolean active;
 
     public User(@Nonnull final String externalUserId, @Nonnull final String email,
-                @Nonnull final String clientId, @Nonnull final String clientSecret, final boolean active) {
+                @Nonnull final String clientId, @Nonnull final String clientSecret) {
         id = UUID.randomUUID().toString();
         this.externalUserId = externalUserId;
         this.email = email;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
-        this.active = active;
+        active = true;
     }
 
     public User() {
