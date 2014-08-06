@@ -35,7 +35,7 @@ public class UserServiceTest {
 
         assertNotNull(persistedUser.getId());
         assertTrue(persistedUser.isActive());
-        assertEquals(user.getExternalUserId(), persistedUser.getExternalUserId());
+        assertEquals(user.getUserExternalId(), persistedUser.getUserExternalId());
         assertEquals(user.getEmail(), persistedUser.getEmail());
         assertEquals(user.getClientId(), persistedUser.getClientId());
         assertEquals(user.getClientSecret(), persistedUser.getClientSecret());

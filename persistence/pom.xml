@@ -6,10 +6,10 @@
         <groupId>com.self</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
+    
     <artifactId>persistence</artifactId>
     <name>OAuth: Persistence</name>
-
+    
     <properties>
         <hibernate-jpa-2.0-api.version>1.0.1.Final</hibernate-jpa-2.0-api.version>
         <junit.version>4.11</junit.version>
@@ -17,7 +17,7 @@
         <h2.version>1.4.180</h2.version>
         <querydsl-version>3.4.2</querydsl-version>
     </properties>
-
+    
     <dependencies>
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -56,7 +56,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    
     <build>
         <plugins>
             <plugin>

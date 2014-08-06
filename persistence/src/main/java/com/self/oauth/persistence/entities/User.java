@@ -11,17 +11,17 @@ import javax.persistence.Id;
 public class User {
     @Id
     private String id;
-    private String externalUserId;
+    private String userExternalId;
     @Column(unique = true)
     private String email;
     private String clientId;
     private String clientSecret;
     private boolean active;
 
-    public User(@Nonnull final String externalUserId, @Nonnull final String email,
+    public User(@Nonnull final String userExternalId, @Nonnull final String email,
                 @Nonnull final String clientId, @Nonnull final String clientSecret) {
         id = UUID.randomUUID().toString();
-        this.externalUserId = externalUserId;
+        this.userExternalId = userExternalId;
         this.email = email;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
@@ -37,8 +37,8 @@ public class User {
     }
 
     @Nonnull
-    public String getExternalUserId() {
-        return externalUserId;
+    public String getUserExternalId() {
+        return userExternalId;
     }
 
     @Nonnull
@@ -64,7 +64,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", externalUserId='" + externalUserId + '\'' +
+                ", externalUserId='" + userExternalId + '\'' +
                 ", email='" + email + '\'' +
                 ", clientId='" + clientId + '\'' +
                 ", clientSecret='" + clientSecret + '\'' +
