@@ -6,7 +6,7 @@
         <groupId>com.self</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    
+
     <artifactId>business</artifactId>
     <name>OAuth: Business</name>
 
