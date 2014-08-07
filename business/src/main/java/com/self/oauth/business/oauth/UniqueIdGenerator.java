@@ -7,14 +7,14 @@ import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
 
-public class CryptoGenerator {
+public class UniqueIdGenerator {
 	private String serverPrivateKey;
 
 	@SuppressWarnings("UnusedDeclaration")
-	public CryptoGenerator() {
+	public UniqueIdGenerator() {
 	}
 
-	public CryptoGenerator(@Nonnull final String serverPrivateKey) {
+	public UniqueIdGenerator(@Nonnull final String serverPrivateKey) {
 		this.serverPrivateKey = serverPrivateKey;
 	}
 
