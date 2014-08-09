@@ -1,115 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <artifactId>oauth</artifactId>
-        <groupId>com.self</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    
-    <artifactId>persistence</artifactId>
-    <name>OAuth: Persistence</name>
-    
-    <properties>
-        <hibernate-jpa-2.0-api.version>1.0.1.Final</hibernate-jpa-2.0-api.version>
-        <junit.version>4.11</junit.version>
-        <hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version>
-        <h2.version>1.4.180</h2.version>
-        <querydsl-version>3.4.2</querydsl-version>
-    </properties>
-    
-    <dependencies>
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>${hibernate-jpa-2.0-api.version}</version>
-        </dependency>
-        <dependency>
-	        <groupId>org.jooq</groupId>
-	        <artifactId>jooq</artifactId>
-	        <version>3.4.1</version>
-        </dependency>
-        <dependency>
-	        <groupId>org.jooq</groupId>
-	        <artifactId>jooq-meta</artifactId>
-	        <version>3.4.1</version>
-        </dependency>
-        <dependency>
-	        <groupId>org.jooq</groupId>
-	        <artifactId>jooq-codegen</artifactId>
-	        <version>3.4.1</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate-entitymanager.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-    
-    <build>
-        <plugins>
-            <plugin>
-	            <!-- Specify the maven code generator plugin -->
-	            <groupId>org.jooq</groupId>
-	            <artifactId>jooq-codegen-maven</artifactId>
-	            <version>3.4.1</version>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>oauth</artifactId>
+		<groupId>com.self</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
 
-	            <!-- The plugin should hook into the generate goal -->
-	            <executions>
-                    <execution>
-                        <goals>
-	                        <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
+	<artifactId>persistence</artifactId>
+	<name>OAuth: Persistence</name>
 
-	            <!-- Manage the plugin's dependency. In this example, we'll use a H2 database -->
-	            <dependencies>
-		            <dependency>
-			            <groupId>com.h2database</groupId>
-			            <artifactId>h2</artifactId>
-			            <version>${h2.version}</version>
-		            </dependency>
-	            </dependencies>
+	<properties>
+		<hibernate-jpa-2.0-api.version>1.0.1.Final</hibernate-jpa-2.0-api.version>
+		<junit.version>4.11</junit.version>
+		<hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version>
+		<h2.version>1.4.180</h2.version>
+	</properties>
 
-	            <!-- Specify the plugin configuration.
-The configuration format is the same as for the standalone code generator -->
-	            <configuration>
-		            <!-- JDBC connection parameters -->
-		            <jdbc>
-			            <driver>org.h2.Driver</driver>
-			            <url>jdbc:h2:mem:oauth</url>
-			            <user>sa</user>
-			            <password></password>
-		            </jdbc>
-
-		            <!-- Generator parameters -->
-		            <generator>
-			            <name>org.jooq.util.DefaultGenerator</name>
-			            <database>
-				            <name>org.jooq.util.h2.H2Database</name>
-				            <includes>.*</includes>
-				            <excludes></excludes>
-				            <inputSchema>public</inputSchema>
-			            </database>
-			            <target>
-				            <packageName>com.self.oauth.persistence.entities</packageName>
-				            <directory>target/generated-sources/jooq</directory>
-			            </target>
-		            </generator>
-	            </configuration>
-            </plugin>
-        </plugins>
-    </build>
+	<dependencies>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>${hibernate-jpa-2.0-api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate-entitymanager.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>

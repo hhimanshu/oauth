@@ -1,6 +1,7 @@
 package com.self.oauth.persistence.entities;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
 
 public class UserService {
@@ -16,11 +17,9 @@ public class UserService {
         return user;
     }
 
-/*
     @Nullable
     public User getUserByEmail(final String email) {
-        final JPQLQuery query = new JPAQuery(entityManager);
-        return query.from(QUser.user).where(QUser.user.email.eq(email)).fetch().uniqueResult(QUser.user);
+	    return (User) entityManager.createQuery("select user from User user where user.email like :email")
+			    .setParameter("email", email).getSingleResult();
     }
-*/
 }
