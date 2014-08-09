@@ -10,11 +10,35 @@
 	<artifactId>business</artifactId>
 	<name>OAuth: Business</name>
 
+	<properties>
+		<hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version>
+		<h2.version>1.4.180</h2.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.self</groupId>
 			<artifactId>persistence</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.self</groupId>
+			<artifactId>persistence</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate-entitymanager.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

@@ -30,8 +30,7 @@ public class UserServiceTest {
 	public void testSaveUser() {
 		final User user = new User(UUID.randomUUID().toString(), "testUser@email.com", "clientId", "clientSecret");
 		final User persistedUser = userService.createUser(user);
-		entityManager.flush();
-		entityManager.getTransaction().commit();
+		changeTransaction();
 
 		assertNotNull(persistedUser.getId());
 		assertTrue(persistedUser.isActive());
@@ -47,14 +46,18 @@ public class UserServiceTest {
 		{
 			final User user = new User(UUID.randomUUID().toString(), email, "clientId", "clientSecret");
 			userService.createUser(user);
-			entityManager.flush();
-			entityManager.getTransaction().commit();
+			changeTransaction();
 		}
 		{
 			final User user = userService.getUserByEmail(email);
 			assertNotNull(user);
 			assertEquals(email, user.getEmail());
 		}
+	}
+
+	private void changeTransaction() {
+		entityManager.flush();
+		entityManager.getTransaction().commit();
 	}
 
 	@After

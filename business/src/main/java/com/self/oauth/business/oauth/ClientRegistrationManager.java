@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import com.self.oauth.business.outbound.ClientDetail;
 import com.self.oauth.persistence.entities.User;
@@ -25,11 +26,17 @@ public class ClientRegistrationManager {
 
 	public ClientDetail register(@Nonnull final String email, @Nonnull final String userExternalId, @Nonnull final String password) {
 		final UserService userService = new UserService(entityManager);
-		final User existingUser = userService.getUserByEmail(email);
-		if (existingUser != null) {
-			return new ClientDetail(existingUser.getClientId(), existingUser.getClientSecret());
+		final User existingUser;
+		try {
+			existingUser = userService.getUserByEmail(email);
+		} catch (final NoResultException e) {
+			return createNewUserAndGetClientDetail(email, userExternalId, userService);
 		}
+		return new ClientDetail(existingUser.getClientId(), existingUser.getClientSecret());
+	}
 
+	@Nonnull
+	private static ClientDetail createNewUserAndGetClientDetail(@Nonnull final String email, @Nonnull final String userExternalId, @Nonnull final UserService userService) {
 		final UniqueIdGenerator uniqueIdGenerator = new UniqueIdGenerator("secure key");
 		final String clientId = uniqueIdGenerator.getClientId(email, userExternalId);
 		final String clientSecret = uniqueIdGenerator.getClientSecret(clientId);
