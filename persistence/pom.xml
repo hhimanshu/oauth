@@ -25,19 +25,19 @@
             <version>${hibernate-jpa-2.0-api.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.mysema.querydsl</groupId>
-            <artifactId>querydsl-apt</artifactId>
-            <version>${querydsl-version}</version>
+	        <groupId>org.jooq</groupId>
+	        <artifactId>jooq</artifactId>
+	        <version>3.4.1</version>
         </dependency>
         <dependency>
-            <groupId>com.mysema.querydsl</groupId>
-            <artifactId>querydsl-core</artifactId>
-            <version>${querydsl-version}</version>
+	        <groupId>org.jooq</groupId>
+	        <artifactId>jooq-meta</artifactId>
+	        <version>3.4.1</version>
         </dependency>
         <dependency>
-            <groupId>com.mysema.querydsl</groupId>
-            <artifactId>querydsl-jpa</artifactId>
-            <version>${querydsl-version}</version>
+	        <groupId>org.jooq</groupId>
+	        <artifactId>jooq-codegen</artifactId>
+	        <version>3.4.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -60,20 +60,55 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.mysema.maven</groupId>
-                <artifactId>maven-apt-plugin</artifactId>
-                <version>0.3.2</version>
-                <executions>
+	            <!-- Specify the maven code generator plugin -->
+	            <groupId>org.jooq</groupId>
+	            <artifactId>jooq-codegen-maven</artifactId>
+	            <version>3.4.1</version>
+
+	            <!-- The plugin should hook into the generate goal -->
+	            <executions>
                     <execution>
                         <goals>
-                            <goal>process</goal>
+	                        <goal>generate</goal>
                         </goals>
-                        <configuration>
-                            <outputDirectory>target/generated-sources/java</outputDirectory>
-                            <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
-                        </configuration>
                     </execution>
                 </executions>
+
+	            <!-- Manage the plugin's dependency. In this example, we'll use a H2 database -->
+	            <dependencies>
+		            <dependency>
+			            <groupId>com.h2database</groupId>
+			            <artifactId>h2</artifactId>
+			            <version>${h2.version}</version>
+		            </dependency>
+	            </dependencies>
+
+	            <!-- Specify the plugin configuration.
+The configuration format is the same as for the standalone code generator -->
+	            <configuration>
+		            <!-- JDBC connection parameters -->
+		            <jdbc>
+			            <driver>org.h2.Driver</driver>
+			            <url>jdbc:h2:mem:oauth</url>
+			            <user>sa</user>
+			            <password></password>
+		            </jdbc>
+
+		            <!-- Generator parameters -->
+		            <generator>
+			            <name>org.jooq.util.DefaultGenerator</name>
+			            <database>
+				            <name>org.jooq.util.h2.H2Database</name>
+				            <includes>.*</includes>
+				            <excludes></excludes>
+				            <inputSchema>public</inputSchema>
+			            </database>
+			            <target>
+				            <packageName>com.self.oauth.persistence.entities</packageName>
+				            <directory>target/generated-sources/jooq</directory>
+			            </target>
+		            </generator>
+	            </configuration>
             </plugin>
         </plugins>
     </build>
