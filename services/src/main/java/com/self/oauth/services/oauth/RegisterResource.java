@@ -14,26 +14,26 @@ import com.self.oauth.business.outbound.ClientDetail;
 @RequestScoped
 @Path("register")
 public class RegisterResource {
-    private ClientRegistrationManager clientRegistrationManager;
+	private ClientRegistrationManager clientRegistrationManager;
 
-    @SuppressWarnings("UnusedDeclaration")
-    public RegisterResource() {
-        // used by jax-rs
-    }
+	@SuppressWarnings("UnusedDeclaration")
+	public RegisterResource() {
+		// used by jax-rs
+	}
 
-    @Inject
-    public RegisterResource(@Nonnull final ClientRegistrationManager clientRegistrationManager) {
-        this.clientRegistrationManager = clientRegistrationManager;
-    }
+	@Inject
+	public RegisterResource(@Nonnull final ClientRegistrationManager clientRegistrationManager) {
+		this.clientRegistrationManager = clientRegistrationManager;
+	}
 
-    @GET
-    public Response helloOauth() {
-        return Response.ok("Hello Oauth").build();
-    }
+	@GET
+	public Response helloOauth() {
+		return Response.ok("Hello Oauth").build();
+	}
 
-    @POST
-    public Response registerClient(@Nonnull final ClientRequest clientRequest) {
-        final ClientDetail clientDetail = clientRegistrationManager.register(clientRequest.getEmail(), clientRequest.getId(), clientRequest.getPassword());
-        return Response.ok(clientDetail).build();
-    }
+	@POST
+	public Response registerClient(@Nonnull final ClientRequest clientRequest) {
+		final ClientDetail clientDetail = clientRegistrationManager.register(clientRequest.getEmail(), clientRequest.getUserExternalId(), clientRequest.getPassword());
+		return Response.ok(clientDetail).build();
+	}
 }
