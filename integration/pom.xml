@@ -14,6 +14,12 @@
         <junit.version>4.11</junit.version>
         <maven-failsafe-plugin.version>2.12</maven-failsafe-plugin.version>
         <cargo-maven2-plugin.version>1.4.8</cargo-maven2-plugin.version>
+	    <derby.version>10.10.2.0</derby.version>
+	    <derby.port>1527</derby.port>
+	    <datasource.jndi>java:/jdbc/OAuthDS</datasource.jndi>
+	    <datasource_contract.jndi>java:/jdbc/ContractDS</datasource_contract.jndi>
+	    <datasource.user>APP</datasource.user>
+	    <datasource.password>nonemptypassword</datasource.password>
     </properties>
     
     <dependencies>
@@ -38,6 +44,18 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+	    <dependency>
+		    <groupId>org.apache.derby</groupId>
+		    <artifactId>derby</artifactId>
+		    <version>${derby.version}</version>
+		    <scope>test</scope>
+	    </dependency>
+	    <dependency>
+		    <groupId>org.apache.derby</groupId>
+		    <artifactId>derbyclient</artifactId>
+		    <version>${derby.version}</version>
+		    <scope>test</scope>
+	    </dependency>
     </dependencies>
     
     <build>
@@ -79,8 +97,33 @@
                 <configuration>
                     <container>
                         <containerId>wildfly8x</containerId>
+	                    <dependencies>
+		                    <dependency>
+			                    <groupId>org.apache.derby</groupId>
+			                    <artifactId>derby</artifactId>
+		                    </dependency>
+		                    <dependency>
+			                    <groupId>org.apache.derby</groupId>
+			                    <artifactId>derbyclient</artifactId>
+		                    </dependency>
+	                    </dependencies>
+	                    <systemProperties>
+		                    <derby.system.home>${project.build.directory}/derby</derby.system.home>
+	                    </systemProperties>
                     </container>
-                    <deployables>
+	                <configuration>
+		                <properties combine.children="append">
+			                <cargo.servlet.port>9090</cargo.servlet.port>
+			                <cargo.datasource.datasource.derby>
+				                cargo.datasource.driver=org.apache.derby.jdbc.ClientDriver|
+				                cargo.datasource.url=jdbc:derby://localhost:${derby.port}/OauthDB|
+				                cargo.datasource.jndi=${datasource.jndi}|
+				                cargo.datasource.username=${datasource.user}|
+				                cargo.datasource.password=${datasource.password}
+			                </cargo.datasource.datasource.derby>
+		                </properties>
+	                </configuration>
+	                <deployables>
                         <deployable>
                             <groupId>com.self</groupId>
                             <artifactId>services</artifactId>
@@ -92,11 +135,6 @@
                             <pingTimeout>30000</pingTimeout>
                         </deployable>
                     </deployables>
-                    <configuration>
-                        <properties>
-                            <cargo.servlet.port>9090</cargo.servlet.port>
-                        </properties>
-                    </configuration>
                 </configuration>
             </plugin>
         </plugins>
