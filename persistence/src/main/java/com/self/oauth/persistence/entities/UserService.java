@@ -21,4 +21,11 @@ public class UserService {
 	    return (User) entityManager.createQuery("select user from User user where user.email like :email")
 			    .setParameter("email", email).getSingleResult();
     }
+
+	@Nonnull
+	public User getUserByClientIdAndClientSecret(@Nonnull final String clientId, @Nonnull final String clientSecret) {
+		return (User) entityManager.createQuery("select user from User user where user.clientId like :clientId and user.clientSecret like :clientSecret")
+				.setParameter("clientId", clientId)
+				.setParameter("clientSecret", clientSecret).getSingleResult();
+	}
 }

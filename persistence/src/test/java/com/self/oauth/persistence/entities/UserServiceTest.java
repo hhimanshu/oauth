@@ -44,7 +44,7 @@ public class UserServiceTest {
 	public void testGetUserByEmail() {
 		final String email = "testGetUserByEmail@email.com";
 		{
-			final User user = new User(UUID.randomUUID().toString(), email, "clientId", "clientSecret");
+			final User user = new User(UUID.randomUUID().toString(), email, UUID.randomUUID().toString(), UUID.randomUUID().toString());
 			userService.createUser(user);
 			changeTransaction();
 		}
@@ -53,6 +53,19 @@ public class UserServiceTest {
 			assertNotNull(user);
 			assertEquals(email, user.getEmail());
 		}
+	}
+
+	@Test
+	public void testGetUserByClientIdAndClientSecret() {
+		final String email = "testGetUserByClientIdAndClientSecret@email.com";
+		final User user = new User(UUID.randomUUID().toString(), email, UUID.randomUUID().toString(), UUID.randomUUID().toString());
+		userService.createUser(user);
+		changeTransaction();
+
+		final User userInDb = userService.getUserByClientIdAndClientSecret(user.getClientId(), user.getClientSecret());
+		assertNotNull(userInDb);
+		assertEquals(email, userInDb.getEmail());
+		assertEquals(user, userInDb);
 	}
 
 	private void changeTransaction() {
