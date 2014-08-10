@@ -17,7 +17,6 @@
         <derby.version>10.10.2.0</derby.version>
         <derby.port>1527</derby.port>
         <datasource.jndi>java:/jdbc/OAuthDS</datasource.jndi>
-        <datasource_contract.jndi>java:/jdbc/ContractDS</datasource_contract.jndi>
         <datasource.user>APP</datasource.user>
         <datasource.password>nonemptypassword</datasource.password>
     </properties>
@@ -139,7 +138,7 @@
                         <properties>
                             <cargo.servlet.port>9090</cargo.servlet.port>
                             <cargo.datasource.datasource.derby>cargo.datasource.driver=org.apache.derby.jdbc.ClientDriver|
-				                cargo.datasource.url=jdbc:derby://localhost:${derby.port}/OauthDB|
+				                cargo.datasource.url=jdbc:derby://localhost:${derby.port}/oauth;create=true|
 				                cargo.datasource.jndi=${datasource.jndi}|
 				                cargo.datasource.username=${datasource.user}|
 				                cargo.datasource.password=${datasource.password}</cargo.datasource.datasource.derby>
