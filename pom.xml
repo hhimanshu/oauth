@@ -24,6 +24,7 @@
         <cdi-api.version>1.2</cdi-api.version>
         <javaee-api.version>7.0</javaee-api.version>
         <junit.version>4.11</junit.version>
+        <hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -31,6 +32,12 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate-entitymanager.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

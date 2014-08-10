@@ -17,8 +17,13 @@
         <derby.version>10.10.2.0</derby.version>
         <derby.port>1527</derby.port>
         <datasource.jndi>java:/jdbc/OAuthDS</datasource.jndi>
-        <datasource.user>APP</datasource.user>
-        <datasource.password>nonemptypassword</datasource.password>
+        <datasource.user>sa</datasource.user>
+        <datasource.password></datasource.password>
+        <resteasy-jackson-provider.version>3.0.8.Final</resteasy-jackson-provider.version>
+        <h2.version>1.4.180</h2.version>
+        <datasource.url>jdbc:h2:${project.build.outputDirectory}/oauth;create=true</datasource.url>
+        <datasource.driver>org.h2.Driver</datasource.driver>
+        <sql-maven-plugin.version>1.5</sql-maven-plugin.version>
     </properties>
     
     <dependencies>
@@ -40,6 +45,11 @@
             <version>${resteasy-jaxrs.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson-provider</artifactId>
+            <version>${resteasy-jackson-provider.version}</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
@@ -55,33 +65,70 @@
             <version>${derby.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.transaction</groupId>
+            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+            <version>1.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     
     <build>
         <plugins>
             <plugin>
-                <groupId>org.carlspring.maven</groupId>
-                <artifactId>derby-maven-plugin</artifactId>
-                <version>1.8</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>${sql-maven-plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>start-derby</id>
-                        <phase>pre-integration-test</phase>
+                        <id>default</id>
+                        <phase>compile</phase>
                         <goals>
-                            <goal>start</goal>
+                            <goal>execute</goal>
                         </goals>
-                    </execution>
-                    <execution>
-                        <id>stop-derby</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
+                        <configuration>
+                            <url>${datasource.url}</url>
+                            <!-- no transaction -->
+                            <autocommit>true</autocommit>
+                            <sqlCommand>CREATE TABLE User
+							(
+								id             VARCHAR(255) NOT NULL,
+								userExternalId VARCHAR(255) NOT NULL,
+								email          VARCHAR(255) NOT NULL,
+								clientId       VARCHAR(255) NOT NULL,
+								clientSecret   VARCHAR(255) NOT NULL,
+								active         BOOLEAN,
+								PRIMARY KEY (id)
+							)</sqlCommand>
+                        </configuration>
                     </execution>
                 </executions>
+                
+                <dependencies>
+                    <!-- specify the dependent jdbc driver here -->
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>${h2.version}</version>
+                    </dependency>
+                </dependencies>
+                
                 <configuration>
-                    <port>${derby.port}</port>
+                    <driver>${datasource.driver}</driver>
+                    <url>${datasource.url}</url>
+                    <username>${datasource.user}</username>
+                    <password>${datasource.password}</password>
                 </configuration>
+                
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -122,12 +169,8 @@
                         <containerId>wildfly8x</containerId>
                         <dependencies>
                             <dependency>
-                                <groupId>org.apache.derby</groupId>
-                                <artifactId>derby</artifactId>
-                            </dependency>
-                            <dependency>
-                                <groupId>org.apache.derby</groupId>
-                                <artifactId>derbyclient</artifactId>
+                                <groupId>com.h2database</groupId>
+                                <artifactId>h2</artifactId>
                             </dependency>
                         </dependencies>
                         <systemProperties>
@@ -137,11 +180,11 @@
                     <configuration>
                         <properties>
                             <cargo.servlet.port>9090</cargo.servlet.port>
-                            <cargo.datasource.datasource.derby>cargo.datasource.driver=org.apache.derby.jdbc.ClientDriver|
-				                cargo.datasource.url=jdbc:derby://localhost:${derby.port}/oauth;create=true|
-				                cargo.datasource.jndi=${datasource.jndi}|
-				                cargo.datasource.username=${datasource.user}|
-				                cargo.datasource.password=${datasource.password}</cargo.datasource.datasource.derby>
+                            <cargo.datasource.datasource.derby>cargo.datasource.driver=${datasource.driver}|
+								cargo.datasource.url=${datasource.url}|
+								cargo.datasource.jndi=${datasource.jndi}|
+								cargo.datasource.username=${datasource.user}|
+								cargo.datasource.password=${datasource.password}</cargo.datasource.datasource.derby>
                         </properties>
                     </configuration>
                     <deployables>

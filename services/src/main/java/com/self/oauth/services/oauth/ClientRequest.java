@@ -5,11 +5,17 @@ import javax.validation.constraints.NotNull;
 
 public class ClientRequest {
 	@NotNull(message = "email can not be empty")
-	private final String email;
+	private String email;
 	@NotNull(message = "userExternalId can not be empty")
-	private final String userExternalId;
+	private String userExternalId;
 	@NotNull(message = "password can not be empty")
-	private final String password;
+	private String password;
+
+
+	@SuppressWarnings("UnusedDeclaration")
+	public ClientRequest() {
+		// used by jax-rs
+	}
 
 	public ClientRequest(@Nonnull final String email, @Nonnull final String userExternalId, @Nonnull final String password) {
 		this.email = email;
@@ -36,7 +42,7 @@ public class ClientRequest {
 	public String toString() {
 		return "ClientRequest{" +
 				"email='" + email + '\'' +
-				", userExternalId=" + userExternalId +
+				", userExternalId='" + userExternalId + '\'' +
 				", password='" + password + '\'' +
 				'}';
 	}
