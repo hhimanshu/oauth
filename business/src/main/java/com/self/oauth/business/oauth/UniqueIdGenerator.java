@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
 
+import com.self.oauth.persistence.entities.User;
+
 public class UniqueIdGenerator {
 	private String serverPrivateKey;
 
@@ -26,14 +28,7 @@ public class UniqueIdGenerator {
 
 	@Nonnull
 	private static String getHashedSecret(@Nonnull final String stringToHash) {
-		final MessageDigest messageDigest;
-
-		try {
-			messageDigest = MessageDigest.getInstance("MD5");
-		} catch (final NoSuchAlgorithmException e) {
-			throw new RuntimeException("can not generate client id: " + e.getMessage());
-		}
-
+		final MessageDigest messageDigest = getMessageDigest("MD5");
 		final String randomString = Integer.toString(new SecureRandom(stringToHash.getBytes()).nextInt());
 		messageDigest.update(randomString.getBytes());
 
@@ -59,5 +54,28 @@ public class UniqueIdGenerator {
 	@Nonnull
 	private String getStringForClientSecret(@Nonnull final String clientId) {
 		return ":" + clientId + ":" + serverPrivateKey + ":" + LocalDateTime.now().getNano() + ":";
+	}
+
+	@Nonnull
+	public static String getAuthCode(@Nonnull final User user) {
+		final MessageDigest messageDigest = getMessageDigest("MD5");
+		messageDigest.update(getStringForAuthCode(user).getBytes());
+		return new BigInteger(1, messageDigest.digest()).toString();
+	}
+
+	@Nonnull
+	private static String getStringForAuthCode(@Nonnull final User user) {
+		return user.getEmail() + ":" + user.getUserExternalId() + ":" + user.getClientId() + ":" + user.getClientSecret();
+	}
+
+	@Nonnull
+	private static MessageDigest getMessageDigest(@Nonnull final String algorithm) {
+		final MessageDigest messageDigest;
+		try {
+			messageDigest = MessageDigest.getInstance(algorithm);
+		} catch (final NoSuchAlgorithmException e) {
+			throw new RuntimeException("can not generate client id: " + e.getMessage());
+		}
+		return messageDigest;
 	}
 }
