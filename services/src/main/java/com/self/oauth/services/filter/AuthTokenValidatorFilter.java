@@ -1,6 +1,7 @@
 package com.self.oauth.services.filter;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 import javax.servlet.Filter;
@@ -13,9 +14,14 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.self.oauth.business.oauth.ClientRegistrationManager;
+import com.self.oauth.business.oauth.UniqueIdGenerator;
+
 @WebFilter("/rest/*")
 public class AuthTokenValidatorFilter implements Filter {
-	public static final String BEARER_HEADER = "BEARER";
+	private static final String BEARER_HEADER = "BEARER";
+	private static final String COLON = ":";
+	private static final Pattern PATTERN = Pattern.compile(COLON);
 
 	@Override
 	public void init(final FilterConfig filterConfig) throws ServletException {
@@ -34,8 +40,22 @@ public class AuthTokenValidatorFilter implements Filter {
 	}
 
 	private static boolean isValidAuthToken(@Nonnull final String header) {
-		// (todo: harit) validate token
-		return true;
+		final String[] tokenParts = PATTERN.split(header);
+
+		if (tokenParts.length != 3) {
+			// hash, uuid, timestamp
+			return false;
+		}
+
+		final int nanoTimeStamp;
+		try {
+			nanoTimeStamp = Integer.parseInt(tokenParts[2]);
+		} catch (final NumberFormatException e) {
+			return false;
+		}
+
+		final String hashedAuthToken = new UniqueIdGenerator(ClientRegistrationManager.SERVER_PRIVATE_KEY).getHashedAuthToken(tokenParts[1], nanoTimeStamp);
+		return hashedAuthToken.equals(tokenParts[0]);
 	}
 
 	@Override

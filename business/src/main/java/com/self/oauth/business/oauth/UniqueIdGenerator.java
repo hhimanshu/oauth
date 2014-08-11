@@ -83,8 +83,13 @@ public class UniqueIdGenerator {
 	@Nonnull
 	public String getAuthToken(@Nonnull final User user) {
 		final int nanoTimeStamp = LocalDateTime.now().getNano();
+		return getHashedAuthToken(user.getId(), nanoTimeStamp) + COLON + user.getId() + COLON + nanoTimeStamp;
+	}
+
+	@Nonnull
+	public String getHashedAuthToken(@Nonnull final String userId, final int nanoTimeStamp) {
 		final MessageDigest messageDigest = getMessageDigest("MD5");
-		messageDigest.update((serverPrivateKey + user.getId() + nanoTimeStamp).getBytes());
-		return new BigInteger(1, messageDigest.digest()).toString() + COLON + user.getId() + COLON + nanoTimeStamp;
+		messageDigest.update((serverPrivateKey + userId + nanoTimeStamp).getBytes());
+		return new BigInteger(1, messageDigest.digest()).toString();
 	}
 }
