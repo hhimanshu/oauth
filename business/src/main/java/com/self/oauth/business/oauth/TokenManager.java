@@ -1,7 +1,5 @@
 package com.self.oauth.business.oauth;
 
-import java.util.UUID;
-
 import javax.annotation.Nonnull;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -28,22 +26,16 @@ public class TokenManager {
 
 	@Nonnull
 	public String getAccessToken(@Nonnull final String clientId, @Nonnull final String clientSecret, @Nonnull final String authCode) {
-		if (!isValidAuthCode(authCode, clientId, clientSecret)) {
-			throw new IllegalArgumentException("information is not valid");
-		}
-		return UUID.randomUUID().toString();
-	}
-
-	private boolean isValidAuthCode(@Nonnull final String authCode, @Nonnull final String clientId, @Nonnull final String clientSecret) {
-		final UserService userService = new UserService(entityManager);
 		final User existingUser;
 		try {
-			existingUser = userService.getUserByClientIdAndClientSecret(clientId, clientSecret);
+			existingUser = new UserService(entityManager).getUserByClientIdAndClientSecret(clientId, clientSecret);
 		} catch (final NoResultException e) {
-			return false;
+			throw new IllegalArgumentException("No user exists with given clientId and clientSecret");
 		}
 
-		final String authCodeGenerated = UniqueIdGenerator.getAuthCode(existingUser);
-		return authCodeGenerated.equals(authCode);
+		if (!UniqueIdGenerator.getAuthCode(existingUser).equals(authCode)) {
+			throw new IllegalArgumentException("information is not valid");
+		}
+		return new UniqueIdGenerator(ClientRegistrationManager.SERVER_PRIVATE_KEY).getAuthToken(existingUser);
 	}
 }

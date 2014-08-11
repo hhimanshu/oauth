@@ -13,6 +13,8 @@ import com.self.oauth.persistence.entities.services.OauthEntityManager;
 
 @Stateless
 public class ClientRegistrationManager {
+	// (todo: harit) this should be coming from env/resource file
+	public static final String SERVER_PRIVATE_KEY = "Bv4549VQot617816uZ2433rNgZ466192qP2311vYRE845760";
 	private EntityManager entityManager;
 
 	@SuppressWarnings("UnusedDeclaration")
@@ -37,7 +39,7 @@ public class ClientRegistrationManager {
 
 	@Nonnull
 	private static ClientDetail createNewUserAndGetClientDetail(@Nonnull final String email, @Nonnull final String userExternalId, @Nonnull final UserService userService) {
-		final UniqueIdGenerator uniqueIdGenerator = new UniqueIdGenerator("secure key");
+		final UniqueIdGenerator uniqueIdGenerator = new UniqueIdGenerator(SERVER_PRIVATE_KEY);
 		final String clientId = uniqueIdGenerator.getClientId(email, userExternalId);
 		final String clientSecret = uniqueIdGenerator.getClientSecret(clientId);
 		final User newUser = userService.createUser(new User(userExternalId, email, clientId, clientSecret));
