@@ -22,7 +22,6 @@ public class HelloIT {
     public void testHelloRest() {
         final Client client = ClientBuilder.newClient();
         final Response response = client.target("http://localhost:9090/application/rest/protected").request().get();
-        assertEquals(HttpStatus.SC_OK, response.getStatus());
-        assertEquals("Hello REST", response.readEntity(String.class));
+	    assertEquals(HttpStatus.SC_UNAUTHORIZED, response.getStatus());
     }
 }

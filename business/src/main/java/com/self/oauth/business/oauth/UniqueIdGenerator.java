@@ -11,6 +11,7 @@ import javax.annotation.Nonnull;
 import com.self.oauth.persistence.entities.User;
 
 public class UniqueIdGenerator {
+	private static final String COLON = ":";
 	private String serverPrivateKey;
 
 	@SuppressWarnings("UnusedDeclaration")
@@ -43,7 +44,7 @@ public class UniqueIdGenerator {
 		 * The notion of adding LocalDateTime.now().getNano() is to make sure if we ever need to generate/refresh
 		 * a new clientId, it is possible with the same data passed in.
 		 */
-		return ":" + email + ":" + serverPrivateKey + userExternalId + ":" + LocalDateTime.now().getNano() + ":";
+		return COLON + email + COLON + serverPrivateKey + userExternalId + COLON + LocalDateTime.now().getNano() + COLON;
 	}
 
 	@Nonnull
@@ -53,7 +54,7 @@ public class UniqueIdGenerator {
 
 	@Nonnull
 	private String getStringForClientSecret(@Nonnull final String clientId) {
-		return ":" + clientId + ":" + serverPrivateKey + ":" + LocalDateTime.now().getNano() + ":";
+		return COLON + clientId + COLON + serverPrivateKey + COLON + LocalDateTime.now().getNano() + COLON;
 	}
 
 	@Nonnull
@@ -65,7 +66,7 @@ public class UniqueIdGenerator {
 
 	@Nonnull
 	private static String getStringForAuthCode(@Nonnull final User user) {
-		return user.getEmail() + ":" + user.getUserExternalId() + ":" + user.getClientId() + ":" + user.getClientSecret();
+		return user.getEmail() + COLON + user.getUserExternalId() + COLON + user.getClientId() + COLON + user.getClientSecret();
 	}
 
 	@Nonnull
@@ -84,6 +85,6 @@ public class UniqueIdGenerator {
 		final int nanoTimeStamp = LocalDateTime.now().getNano();
 		final MessageDigest messageDigest = getMessageDigest("MD5");
 		messageDigest.update((serverPrivateKey + user.getId() + nanoTimeStamp).getBytes());
-		return new BigInteger(1, messageDigest.digest()).toString() + ":" + user.getId() + ":" + nanoTimeStamp;
+		return new BigInteger(1, messageDigest.digest()).toString() + COLON + user.getId() + COLON + nanoTimeStamp;
 	}
 }
