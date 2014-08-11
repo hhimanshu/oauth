@@ -21,13 +21,9 @@ import javax.ws.rs.core.Response;
 
 import org.apache.http.HttpStatus;
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.junit.Test;
 
-public class TokenIT {
+public class TokenIT extends AbstractIntegrationTest {
 	@Test
 	public void testValidToken() throws IOException {
 		final String clientId;
@@ -73,18 +69,9 @@ public class TokenIT {
 			final MessageDigest messageDigest = MessageDigest.getInstance("MD5");
 			messageDigest.update(toHash.getBytes());
 			hashedAuthCode = new BigInteger(1, messageDigest.digest()).toString();
-		} catch (NoSuchAlgorithmException e) {
+		} catch (final NoSuchAlgorithmException e) {
 			throw new IllegalArgumentException("MD5 algorithm not found");
 		}
 		return hashedAuthCode;
-	}
-
-	@Nonnull
-	public ObjectMapper getObjectMapper() {
-		return new ObjectMapper()
-				.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false /* force ISO8601 */)
-				.configure(SerializationConfig.Feature.WRITE_ENUMS_USING_TO_STRING, true)
-				.configure(DeserializationConfig.Feature.READ_ENUMS_USING_TO_STRING, true)
-				.setSerializationInclusion(JsonSerialize.Inclusion.ALWAYS);
 	}
 }

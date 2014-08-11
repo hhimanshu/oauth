@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -18,13 +17,9 @@ import javax.ws.rs.core.Response;
 
 import org.apache.http.HttpStatus;
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.junit.Test;
 
-public class RegisterIT {
+public class RegisterIT extends AbstractIntegrationTest {
     @Test
     public void testRegisterClientValid() throws IOException {
         final Client client = ClientBuilder.newClient();
@@ -43,13 +38,4 @@ public class RegisterIT {
 	    assertTrue("clientSecret exists in response", jsonReply.has("clientSecret"));
 	    assertFalse("clientSecret value is not empty", jsonReply.get("clientSecret").asText().isEmpty());
     }
-
-	@Nonnull
-	public ObjectMapper getObjectMapper() {
-		return new ObjectMapper()
-				.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false /* force ISO8601 */)
-				.configure(SerializationConfig.Feature.WRITE_ENUMS_USING_TO_STRING, true)
-				.configure(DeserializationConfig.Feature.READ_ENUMS_USING_TO_STRING, true)
-				.setSerializationInclusion(JsonSerialize.Inclusion.ALWAYS);
-	}
 }
