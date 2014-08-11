@@ -21,7 +21,7 @@ import org.junit.Test;
 
 public class TokenIT extends AbstractIntegrationTest {
 	@Test
-	public void testValidToken() throws IOException {
+	public void testGetValidToken() throws IOException {
 		final String clientId;
 		final String clientSecret;
 		final String email = "integrationTest@gmail.com";
@@ -54,5 +54,23 @@ public class TokenIT extends AbstractIntegrationTest {
 			assertTrue(jsonReply.has("authToken"));
 			assertFalse(jsonReply.get("authToken").asText().isEmpty());
 		}
+	}
+
+	@Test
+	public void testGetTokenWithInvalidRegisterDetails() throws IOException {
+		final Client client = ClientBuilder.newClient();
+		final Invocation.Builder request = client.target("http://localhost:9090/application/oauth/token").request(MediaType.APPLICATION_JSON);
+		final Map<String, String> parameters = new HashMap<>();
+
+		final String clientId = "invalidClientId";
+		parameters.put("clientId", clientId);
+
+		final String clientSecret = "invalidClientSecret";
+		parameters.put("clientSecret", clientSecret);
+		parameters.put("authCode", getAuthCode("invalidEmail", "invalidUserId", clientId, clientSecret));
+		final Response response = request.post(Entity.entity(parameters, MediaType.APPLICATION_JSON));
+		assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatus());
+		final JsonNode jsonReply = getObjectMapper().readTree(response.readEntity(String.class));
+		assertTrue("reply must contain error", jsonReply.has("error"));
 	}
 }

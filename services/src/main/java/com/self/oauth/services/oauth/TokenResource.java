@@ -31,7 +31,12 @@ public class TokenResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAuthToken(@Nonnull final TokenRequest tokenRequest) {
-		final String authToken = tokenManager.getAccessToken(tokenRequest.getClientId(), tokenRequest.getClientSecret(), tokenRequest.getAuthCode());
+		final String authToken;
+		try {
+			authToken = tokenManager.getAccessToken(tokenRequest.getClientId(), tokenRequest.getClientSecret(), tokenRequest.getAuthCode());
+		} catch (final Exception e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(Collections.singletonMap("error", e.getMessage())).build();
+		}
 		return Response.ok(Collections.singletonMap("authToken", authToken)).build();
 	}
 }
