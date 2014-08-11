@@ -19,9 +19,9 @@ import org.apache.http.HttpStatus;
 import org.codehaus.jackson.JsonNode;
 import org.junit.Test;
 
-public class TokenIT extends AbstractIntegrationTest {
+public class ProtectedIT extends AbstractIntegrationTest {
 	@Test
-	public void testValidToken() throws IOException {
+	public void testAccessProtectedResourceValid() throws IOException {
 		final String clientId;
 		final String clientSecret;
 		final String email = "integrationTest@gmail.com";
@@ -41,6 +41,7 @@ public class TokenIT extends AbstractIntegrationTest {
 			clientSecret = jsonReply.get("clientSecret").asText();
 		}
 
+		final String authToken;
 		{
 			final Client client = ClientBuilder.newClient();
 			final Invocation.Builder request = client.target("http://localhost:9090/application/oauth/token").request(MediaType.APPLICATION_JSON);
@@ -53,6 +54,35 @@ public class TokenIT extends AbstractIntegrationTest {
 			final JsonNode jsonReply = getObjectMapper().readTree(response.readEntity(String.class));
 			assertTrue(jsonReply.has("authToken"));
 			assertFalse(jsonReply.get("authToken").asText().isEmpty());
+			authToken = jsonReply.get("authToken").asText();
 		}
+
+		{
+			final Client client = ClientBuilder.newClient();
+			final Invocation.Builder request = client.target("http://localhost:9090/application/rest/protected").request(MediaType.APPLICATION_JSON);
+			request.header("BEARER", authToken);
+			final Response response = request.get();
+			assertEquals(HttpStatus.SC_OK, response.getStatus());
+			final JsonNode jsonReply = getObjectMapper().readTree(response.readEntity(String.class));
+			assertEquals("Hello Secured Client!", jsonReply.get("data").asText());
+		}
+	}
+
+	@Test
+	public void testAccessProtectedResourceHeaderNotPresent() {
+		final Client client = ClientBuilder.newClient();
+		final Invocation.Builder request = client.target("http://localhost:9090/application/rest/protected").request(MediaType.APPLICATION_JSON);
+		final Response response = request.get();
+		assertEquals(HttpStatus.SC_UNAUTHORIZED, response.getStatus());
+
+	}
+
+	@Test
+	public void testAccessProtectedResourceInvalidAuthToken() {
+		final Client client = ClientBuilder.newClient();
+		final Invocation.Builder request = client.target("http://localhost:9090/application/rest/protected").request(MediaType.APPLICATION_JSON);
+		request.header("BEARER", "invalidAuthToken");
+		final Response response = request.get();
+		assertEquals(HttpStatus.SC_UNAUTHORIZED, response.getStatus());
 	}
 }

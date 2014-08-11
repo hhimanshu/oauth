@@ -1,5 +1,9 @@
 package com.self.oauth.integration;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.annotation.Nonnull;
 
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -15,5 +19,20 @@ public class AbstractIntegrationTest {
 				.configure(SerializationConfig.Feature.WRITE_ENUMS_USING_TO_STRING, true)
 				.configure(DeserializationConfig.Feature.READ_ENUMS_USING_TO_STRING, true)
 				.setSerializationInclusion(JsonSerialize.Inclusion.ALWAYS);
+	}
+
+	@Nonnull
+	protected static String getAuthCode(@Nonnull final String email, @Nonnull final String userExternalId,
+	                                    @Nonnull final String clientId, @Nonnull final String clientSecret) {
+		final String toHash = email + ":" + userExternalId + ":" + clientId + ":" + clientSecret;
+		final String hashedAuthCode;
+		try {
+			final MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+			messageDigest.update(toHash.getBytes());
+			hashedAuthCode = new BigInteger(1, messageDigest.digest()).toString();
+		} catch (final NoSuchAlgorithmException e) {
+			throw new IllegalArgumentException("MD5 algorithm not found");
+		}
+		return hashedAuthCode;
 	}
 }
