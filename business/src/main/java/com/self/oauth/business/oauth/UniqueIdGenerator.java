@@ -84,6 +84,6 @@ public class UniqueIdGenerator {
 		final int nanoTimeStamp = LocalDateTime.now().getNano();
 		final MessageDigest messageDigest = getMessageDigest("MD5");
 		messageDigest.update((serverPrivateKey + user.getId() + nanoTimeStamp).getBytes());
-		return new BigInteger(1, messageDigest.digest()).toString() + ":" + user.getId() + nanoTimeStamp;
+		return new BigInteger(1, messageDigest.digest()).toString() + ":" + user.getId() + ":" + nanoTimeStamp;
 	}
 }
