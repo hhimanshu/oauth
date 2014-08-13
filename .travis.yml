@@ -1,3 +1,5 @@
+# Build Environment
+build_environment: ubuntu1204
 language: java
 script: mvn
 jdk:
