@@ -7,6 +7,8 @@ before_script:
   - mvn clean
 script:
   - mvn
+after_script:
+  - cp business/shippable/testresults/* shippable/testresults
 after_success:
    - mvn clean cobertura:cobertura
    - mvn clean test
