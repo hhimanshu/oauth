@@ -112,7 +112,7 @@
 		        </dependencies>
 		        <configuration>
 			        <redirectTestOutputToFile>true</redirectTestOutputToFile>
-			        <reportsDirectory>${project}/shippable/testresults</reportsDirectory>
+			        <reportsDirectory>${project.basedir}/shippable/testresults</reportsDirectory>
 		        </configuration>
 	        </plugin>
         </plugins>
