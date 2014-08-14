@@ -96,6 +96,7 @@
 			        <maxmem>256m</maxmem>
 			        <aggregate>true</aggregate>
 			        <outputDirectory>shippable/codecoverage</outputDirectory>
+			        <check></check>
 		        </configuration>
 	        </plugin>
 	        <plugin>
