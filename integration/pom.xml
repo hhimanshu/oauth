@@ -18,8 +18,8 @@
         <derby.port>1527</derby.port>
         <resteasy-jackson-provider.version>3.0.8.Final</resteasy-jackson-provider.version>
         <h2.version>1.4.180</h2.version>
-        <dataSource.url>jdbc:h2:${project.build.outputDirectory}/oauth;create=true</dataSource.url>
-        <dataSource.jndi>java:/jdbc/OAuthDS</dataSource.jndi>
+	    <dataSource.url>jdbc:h2:${project.build.testOutputDirectory}/oauth;create=true</dataSource.url>
+	    <dataSource.jndi>java:/jdbc/OAuthDS</dataSource.jndi>
         <dataSource.driver>org.h2.Driver</dataSource.driver>
         <dataSource.user>sa</dataSource.user>
         <dataSource.password></dataSource.password>
