@@ -5,6 +5,8 @@ before_install:
   - mvn clean
 before_script:
   - mvn clean
+script:
+  - mvn
 after_success:
    - mvn clean cobertura:cobertura
    - mvn clean test
