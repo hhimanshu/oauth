@@ -167,7 +167,7 @@
                             </dependency>
                         </dependencies>
                         <systemProperties>
-                            <derby.system.home>${project.build.directory}/derby</derby.system.home>
+	                        <derby.system.home>${project.build.testOutputDirectory}/derby</derby.system.home>
                         </systemProperties>
                     </container>
                     <configuration>
