@@ -8,6 +8,7 @@ before_script:
 script:
   - mvn
 after_script:
+  - mkdir -p shippable/testresults
   - cp business/shippable/testresults/* shippable/testresults
   - cp integration/shippable/testresults/* shippable/testresults
 after_success:
